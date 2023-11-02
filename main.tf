@@ -10,9 +10,19 @@ resource "aws_vpc" "my_vpc" {
 }
 
 resource "aws_internet_gateway" "my_igw" {
-  vpc_id = var.vpc_id
+  vpc_id = aws_vpc.main.id
   tags = {
     Name = var.igw_name
+  }
+}
+
+resource "aws_subnet" "public_subnet_1" {
+  vpc_id     = aws_vpc.main.id
+  cidr_block = "10.0.16.0/20"
+
+  tags = {
+    Name         = "${var.name_prefix}-public-subnet-1"
+    connectivity = "public"
   }
 }
 
