@@ -4,8 +4,8 @@ variable "vpc_cidr_block" {
   default     = "10.0.0.0/16" 
 }
 
-variable "vpc_name" {
+variable "name" {
   description = "Name for the VPC"
   type        = string
-  default     = "MyVPC" 
+  default     = "main" 
 }
