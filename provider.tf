@@ -8,6 +8,6 @@ terraform {
 }
 
 provider "aws" {
-  region = "ap-south-1"
-  profile = "tw-beach"
+  region = "eu-north-1"
+  profile = "160071257600_PowerUserPlusRole"
 }
