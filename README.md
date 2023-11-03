@@ -1,8 +1,6 @@
 1. Create VPC:
 Use Terraform to define and create an AWS Virtual Private Cloud (VPC) with a specified CIDR block.
 Ensure that the VPC is named appropriately
-<img width="1756" alt="image" src="https://github.com/Sweta8625/Terraform/assets/130764320/4dd6044f-a8b1-4b78-aaa3-e87be0bc44c0">
-
 3. Configure Internet Gateway (IGW):
 Create an Internet Gateway and attach it to the VPC.
 4. Provision a Public Subnet:
@@ -12,7 +10,8 @@ Ensure that the subnet is appropriately tagged.
 Establish a routing table that directs traffic to the Internet Gateway.
 Ensure that the route table is associated with the VPC.
 
-<img width="1757" alt="image" src="https://github.com/Sweta8625/Terraform/assets/130764320/0b568e10-8994-4f43-845f-8305593c3dbf">
+<img width="1719" alt="image" src="https://github.com/Sweta8625/Terraform/assets/130764320/6d6ee0c2-d347-400a-a8d1-6d232d769d5b">
+
 
 6. Security Group Creation:
 Set up a security group to manage inbound and outbound traffic to the EC2 instance.
