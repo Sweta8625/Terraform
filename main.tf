@@ -79,3 +79,39 @@ resource "aws_security_group" "web_server_security_group" {
   }
 
 }
+
+resource "aws_instance" "web_server_instance" {
+  ami           = var.instance_ami
+  instance_type = "t3.micro"
+  key_name      = var.key_pair
+  subnet_id     = aws_subnet.public_subnet.id 
+
+  # Associate the security group you created
+  vpc_security_group_ids = [aws_security_group.web_server_security_group.id]
+
+
+  connection {
+    type        = "ssh"
+    user        = "ec2-user" 
+    private_key = file("instance-keys.pem") 
+    host        = self.public_ip
+  }
+
+  provisioner "remote-exec" {
+    inline = [
+      "sudo yum update -y",
+      "sudo yum install httpd -y",
+      "sudo systemctl start httpd",
+      "sudo systemctl enable httpd"
+    ]
+  }
+
+tags = {
+    Name = "${var.tag_name}-EC2-instance"
+  }
+}
+
+# Output the public IP address of the EC2 instance
+output "public_ip" {
+  value = aws_instance.web_server_instance.public_ip
+}
