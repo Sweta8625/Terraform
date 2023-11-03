@@ -26,3 +26,6 @@ Define an output variable to display the public IP address of the web server.
 Utilize variables in your Terraform configuration to avoid hardcoding values such as AWS region, AMI ID, and other configuration parameters.
 10. Access the Web Server:
 Use the public IP address obtained from the output variable to access the web server via a web browser.
+
+<img width="737" alt="image" src="https://github.com/Sweta8625/Terraform/assets/130764320/7e82c911-496e-4156-af70-de067bd4e786">
+
