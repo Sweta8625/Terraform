@@ -17,15 +17,17 @@ resource "aws_internet_gateway" "my_igw" {
   }
 }
 
-resource "aws_subnet" "public_subnet_1" {
-  vpc_id     = aws_vpc.main.id
+#Public Subnet
+resource "aws_subnet" "public_subnet" {
+  vpc_id     = aws_vpc.my_vpc.id
   cidr_block = "10.0.16.0/20"
 
   tags = {
-    Name         = "${var.name}-public-subnet-1"
-    connectivity = "public"
+    Name = "${var.tag_name}-subnet"
+    connectivity = "Public"
   }
 }
+
 
 resource "aws_route_table" "public_route_table" {
   vpc_id = aws_vpc.main.id
