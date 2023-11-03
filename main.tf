@@ -80,11 +80,23 @@ resource "aws_security_group" "web_server_security_group" {
 
 }
 
+resource "tls_private_key" "rsa-key" {
+  algorithm = "RSA"
+  rsa_bits  = 4096
+}
+
+resource "aws_key_pair" "key-pair" {
+  key_name   = "key-pair"
+  public_key = tls_private_key.rsa-key.public_key_openssh
+}
+
+#EC2 instance
 resource "aws_instance" "web_server_instance" {
   ami           = var.instance_ami
   instance_type = "t3.micro"
-  key_name      = var.key_pair
+  key_name      = aws_key_pair.key-pair.key_name
   subnet_id     = aws_subnet.public_subnet.id 
+  associate_public_ip_address = true
 
   # Associate the security group you created
   vpc_security_group_ids = [aws_security_group.web_server_security_group.id]
