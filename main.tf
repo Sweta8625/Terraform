@@ -43,3 +43,39 @@ resource "aws_route" "route_to_igw" {
   destination_cidr_block = "0.0.0.0/0" 
   gateway_id = aws_internet_gateway.my_igw.id 
 }
+
+#Security Group
+resource "aws_security_group" "web_server_security_group" {
+  name        = "${var.tag_name}-security-group}"
+  description = "Security group for the web server"
+  vpc_id      = aws_vpc.my_vpc.id 
+
+  #HTTP
+  ingress {
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"] 
+  }
+
+  #SSH
+  ingress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"] 
+  }
+
+  #Outgoing
+    egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"] 
+  }
+
+  tags = {
+    Name = "${var.tag_name}-webserver-sg"
+  }
+
+}
