@@ -80,9 +80,20 @@ resource "aws_security_group" "web_server_security_group" {
 
 }
 
+resource "aws_route_table_association" "public_subnet_route_table_association" {
+  subnet_id = aws_subnet.public_subnet.id
+  route_table_id =  aws_route_table.my_route_table.id
+}
+
 resource "tls_private_key" "rsa-key" {
   algorithm = "RSA"
   rsa_bits  = 4096
+}
+
+resource "local_file" "private_key_file" {
+  filename        = "ec2.pem"
+  file_permission = "400"
+  content         = tls_private_key.rsa-key.private_key_pem
 }
 
 resource "aws_key_pair" "key-pair" {
@@ -90,7 +101,7 @@ resource "aws_key_pair" "key-pair" {
   public_key = tls_private_key.rsa-key.public_key_openssh
 }
 
-#EC2 instance
+#EC2 Instance
 resource "aws_instance" "web_server_instance" {
   ami           = var.instance_ami
   instance_type = "t3.micro"
@@ -105,7 +116,7 @@ resource "aws_instance" "web_server_instance" {
   connection {
     type        = "ssh"
     user        = "ec2-user" 
-    private_key = file("instance-keys.pem") 
+    private_key = tls_private_key.rsa-key.private_key_pem 
     host        = self.public_ip
   }
 
