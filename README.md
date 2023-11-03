@@ -1,5 +1,7 @@
 1. Create VPC:
 Use Terraform to define and create an AWS Virtual Private Cloud (VPC) with a specified CIDR block.
+<img width="1756" alt="image" src="https://github.com/Sweta8625/Terraform/assets/130764320/4dd6044f-a8b1-4b78-aaa3-e87be0bc44c0">
+
 Ensure that the VPC is named appropriately
 3. Configure Internet Gateway (IGW):
 Create an Internet Gateway and attach it to the VPC.
